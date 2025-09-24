@@ -2,7 +2,7 @@
 set -e
 
 echo "Running mypy..."
-mypy {{cookiecutter.project_slug}}
+uvx mypy {{cookiecutter.project_slug}}
 
 echo "Running bandit..."
-bandit -c pyproject.toml -r {{cookiecutter.project_slug}}
+uvx bandit -c pyproject.toml -r {{cookiecutter.project_slug}}

@@ -3,7 +3,7 @@ services:
   # nosemgrep: yaml.docker-compose.security.writable-filesystem-service.writable-filesystem-service
   {% if 'kafka' in cookiecutter.streaming_service %}
   kafka:
-    image: bitnami/kafka:3.5.0
+    image: bitnami/kafka:latest
     container_name: bitnami_kafka
     ports:
       - "9092:9092"

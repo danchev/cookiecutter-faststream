@@ -4,10 +4,16 @@ Cookiecutter template for creating a Faststream project.
 
 ## Prerequisites
 
-Before you can use this Cookiecutter template, please make sure you have the `cookiecutter` package installed. If it's not already installed, you can do so using the following command:
+Before you can use this Cookiecutter template, please make sure you have the `uv` package installed. If it's not already installed, you can do so using the following command:
 
-```bash
-pip install cookiecutter
+```bassh
+# Linux/macOS:
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
+
+```pwsh
+# Windows (PowerShell):
+powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
 ```
 
 ## Getting Started
@@ -19,7 +25,7 @@ To create a new Faststream project using this template, follow these steps:
 2. Run the following command to generate a new Faststream project:
 
    ```bash
-   cookiecutter https://github.com/airtai/cookiecutter-faststream.git
+   uvx cookiecutter https://github.com/danchev/cookiecutter-faststream.git
    ```
 
    This command will prompt you to provide some information about your project, such as project name, author name, and other configuration options.

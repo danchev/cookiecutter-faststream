@@ -1,6 +1,6 @@
 # {{cookiecutter.project_name}}
 
-Application in this repository is developed using the [`FastStream`](https://github.com/airtai/faststream) framework. Below, you'll find a guide on how to get started, develop new features or bug fixes, and ensure the quality of your code through testing and linting, run the [`FastStream`](https://github.com/airtai/faststream) application locally, and view [`AsyncAPI`](https://www.asyncapi.com/) documentation.
+Application in this repository is developed using the [`FastStream`](https://github.com/danchev/faststream) framework. Below, you'll find a guide on how to get started, develop new features or bug fixes, and ensure the quality of your code through testing and linting, run the [`FastStream`](https://github.com/danchev/faststream) application locally, and view [`AsyncAPI`](https://www.asyncapi.com/) documentation.
 
 ## Getting Started
 
@@ -13,10 +13,10 @@ To set up your development environment, follow these steps:
    cd {{cookiecutter.project_slug}}
    ```
 
-2. Install all development requirements using pip:
+2. Install all development requirements using uv:
 
    ```bash
-   pip install -e ".[dev]"
+   uv sync
    ```
 
 ## Development
@@ -28,12 +28,12 @@ The application code is located in the `app/` directory. You can add new feature
 Once you have updated tests, you can execute the tests using [`pytest`](https://pytest.org/):
 
 ```bash
-pytest
+uv run pytest
 ```
 
 ## Running FastStream Application Locally
 
-To run the [`FastStream`](https://github.com/airtai/faststream) application locally, follow these steps:
+To run the [`FastStream`](https://github.com/danchev/faststream) application locally, follow these steps:
 
 1. Start the {{cookiecutter.streaming_service | capitalize}} Docker container locally using the provided script:
 
@@ -41,10 +41,15 @@ To run the [`FastStream`](https://github.com/airtai/faststream) application loca
    ./scripts/start_{{cookiecutter.streaming_service}}_broker_locally.sh
    ```
 
-2. Start the [`FastStream`](https://github.com/airtai/faststream) application with the following command:
+2. Start the [`FastStream`](https://github.com/danchev/faststream) application with the following command:
 
    ```bash
-   faststream run {{cookiecutter.project_slug}}.application:app --workers 1
+   uv run faststream run {{cookiecutter.project_slug}}.application:app --workers 1
+   ```
+
+    Alternatively, if you want to view the [`AsyncAPI`](https://www.asyncapi.com/) documentation while the application is running, you can use this command instead:
+   ```bash
+   uv run faststream docs serve {{cookiecutter.project_slug}}.application:app
    ```
 
 3. You can now send messages to the {{cookiecutter.streaming_service | capitalize}} and can test the application. Optionally, if you want to view messages in it, you can subscribe to it using the provided script:
@@ -53,7 +58,7 @@ To run the [`FastStream`](https://github.com/airtai/faststream) application loca
    ./scripts/subscribe_to_{{cookiecutter.streaming_service}}_broker_locally.sh <topic_name>
    ```
 
-4. To stop the [`FastStream`](https://github.com/airtai/faststream) application, press `Ctrl+C`.
+4. To stop the [`FastStream`](https://github.com/danchev/faststream) application, press `Ctrl+C`.
 
 5. Finally, stop the {{cookiecutter.streaming_service | capitalize}} Docker container by running the script:
 
@@ -119,7 +124,7 @@ If there are any static analysis errors, resolve them in your code and rerun the
 
 ## Viewing AsyncAPI Documentation
 
-[`FastStream`](https://github.com/airtai/faststream) framework supports [`AsyncAPI`](https://www.asyncapi.com/) documentation. To ensure that your changes are reflected in the [`AsyncAPI`](https://www.asyncapi.com/) documentation, follow these steps:
+[`FastStream`](https://github.com/danchev/faststream) framework supports [`AsyncAPI`](https://www.asyncapi.com/) documentation. To ensure that your changes are reflected in the [`AsyncAPI`](https://www.asyncapi.com/) documentation, follow these steps:
 
 1. Run the following command to view the [`AsyncAPI`](https://www.asyncapi.com/) documentation:
 
@@ -160,7 +165,7 @@ This repository has three workflows, each triggered when code is pushed:
 
 1. **Tests Workflow**: This workflow is named "Tests" and consists of two jobs. The first job runs static analysis tools [`mypy`](https://mypy.readthedocs.io/en/stable/) and [`bandit`](https://bandit.readthedocs.io/en/latest/) to identify potential issues in the codebase. The second job runs tests using [`pytest`](https://pytest.org/) to ensure the functionality of the application. Both jobs run simultaneously to expedite the `CI` process.
 
-2. **Build Docker Image Workflow**: This workflow is named "Build Docker Image" and has one job. In this job, a [`Docker`](https://www.docker.com/) image is built based on the provided Dockerfile. The built image is then pushed to the [**GitHub Container Registry**](https://ghcr.io), making it available for deployment or other purposes.
+2. **Build Docker Image Workflow**: This workflow is named "Build Docker Image" and has one job. In this job, a [`Docker`](https://www.docker.com/) image is built based on the provided Containerfile. The built image is then pushed to the [**GitHub Container Registry**](https://ghcr.io), making it available for deployment or other purposes.
 
 3. **Deploy FastStream AsyncAPI Docs Workflow**: The final workflow is named "Deploy FastStream AsyncAPI Docs" and also consists of a single job. In this job, the [`AsyncAPI`](https://www.asyncapi.com/) documentation is built from the specification, and the resulting documentation is deployed to [**GitHub Pages**](https://pages.github.com/). This allows for easy access and sharing of the [`AsyncAPI`](https://www.asyncapi.com/) documentation with the project's stakeholders.
 
@@ -196,10 +201,10 @@ Once the **Build Docker Image** workflow in `CI` has successfully completed, the
 
    * `--name faststream-app`: Assigns a name to the running container, in this case, "faststream-app".
 
-   * `--env-file /path/to/env-file`: Specifies the path to an environment file (commonly a `.env` file) that contains environment variables required by your [`FastStream`](https://github.com/airtai/faststream) application. Storing secrets and configuration in an environment file is a secure and best practice for handling sensitive information such as {{cookiecutter.streaming_service | capitalize}} host, port, and authentication details.
+   * `--env-file /path/to/env-file`: Specifies the path to an environment file (commonly a `.env` file) that contains environment variables required by your [`FastStream`](https://github.com/danchev/faststream) application. Storing secrets and configuration in an environment file is a secure and best practice for handling sensitive information such as {{cookiecutter.streaming_service | capitalize}} host, port, and authentication details.
 
-By following these steps, you can easily deploy your [`FastStream`](https://github.com/airtai/faststream) application as a [`Docker`](https://www.docker.com/) container on your server. Remember to customize the `env-file` and other environment variables as needed to suit your specific application requirements.
+By following these steps, you can easily deploy your [`FastStream`](https://github.com/danchev/faststream) application as a [`Docker`](https://www.docker.com/) container on your server. Remember to customize the `env-file` and other environment variables as needed to suit your specific application requirements.
 
 ---
 
-Happy coding with [`FastStream`](https://github.com/airtai/faststream) Application! If you have any questions or encounter any problems, feel free to reach out to us. We appreciate your contributions and commitment to maintaining code quality.
+Happy coding with [`FastStream`](https://github.com/danchev/faststream) Application! If you have any questions or encounter any problems, feel free to reach out to us. We appreciate your contributions and commitment to maintaining code quality.
